@@ -23,9 +23,9 @@ m: move
 
 refer to register: r1, r2
 
-refer to memory: @<memory>#<size>, eg. @80#3 will refer to a 3 digit long int starting at memory 80
+refer to memory: @[memory]#[size], eg. @80#3 will refer to a 3 digit long int starting at memory 80
 
-refer to constant: #<constant>, eg. #5 refers to the number 5
+refer to constant: #[constant], eg. #5 refers to the number 5
 
 example commands:
 
