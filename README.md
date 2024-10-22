@@ -14,18 +14,25 @@ how to compile:
 	./void_assembler
 
 how to play (at the current state of the program):
+
 Continue game -> Choose any of the boxes (levels) to get to the gameplay screen
 
 commands:
+
 m: move
 
 refer to register: r1, r2
+
 refer to memory: @<memory>#<size>, eg. @80#3 will refer to a 3 digit long int starting at memory 80
+
 refer to constant: #<constant>, eg. #5 refers to the number 5
 
 example commands:
+
 m#123@80;	<- move 123 to memory address 80
+
 m@80#3r1;	<- move the three digit number starting at memory 80 to register 1
 
 assemble a command: left control
+
 run the assembled command: right control	
