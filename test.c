@@ -4,6 +4,8 @@
 // todo: fix character delete bug
 // todo: complete refactoring and cleaning of code
 // todo: implement an upper limit to register values
+// todo: fix bugged stepping function
+// todo: fix ; - not to be useless
 
 #include "raylib.h"
 #include <stdio.h>
@@ -437,16 +439,24 @@ int main(void){
 				if(flag==0){
 					programCounter=r1;
 				}
-			}		
+			} break;		
 
 		} 
-
+		programCounter++;
 
 	}
 
 	void run(){
-		programCounter = 0;
-		doCommand();		
+		while(programCounter<12*24){
+			doCommand();
+		}	
+	}
+
+	void step(){
+		doCommand();
+		while(memory[programCounter]!=10 && memory[programCounter]!=13 && memory[programCounter]!=16 && memory[programCounter]!=17 && memory[programCounter]<12*24){
+			programCounter++;
+		}
 	}
 
 
@@ -782,6 +792,9 @@ int main(void){
 				}
 				if(IsKeyPressed(KEY_RIGHT_CONTROL)){
 					run();
+				}
+				if(IsKeyPressed(KEY_RIGHT_ALT)){
+					step();
 				}
 
 			}

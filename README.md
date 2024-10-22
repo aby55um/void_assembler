@@ -51,4 +51,6 @@ if the flag is 0, then the program counter is set to the value of r1
 
 assemble a command: left control
 
-run the assembled command: right control	
+step a single command: left alt
+
+run the assembled program: right control	
