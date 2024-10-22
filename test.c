@@ -230,18 +230,18 @@ int main(void){
 	void doCommand(){
 		int from = memory[programCounter+1];
 		int fromIndex = 0;
-		char fromSize = 0;
+		int fromSize = 0;
 		char *valueToCopy;
 		int toIndex = 0;
 		int toRevIndex = 0;
 		int toSize = 0;
 		int toMem = 0;
 		int toMemLength = 0;
-		int r;
+		int r=0;
+
 
 		switch(memory[programCounter]){
-
-		case 10:
+			case 10:
 			{	
 				switch(from){
 					case 11:
@@ -384,7 +384,40 @@ int main(void){
 					}
 				}
 			} break;
-		}	
+			case 13:
+			{
+				switch(memory[programCounter+1]){
+					case 14:
+					{
+						if(memory[programCounter+2]==1){
+							r1++;
+						}
+						else if(memory[programCounter+2]==2){
+							r2++;
+						}
+					} break;
+					case 12:
+					{
+						int k=0;
+						while(memory[programCounter+2+k]>=0 && memory[programCounter+2+k]<=9){
+							fromSize++;
+							k++;
+						}
+						for(int i=0;i<fromSize;i++){
+							r+=memory[programCounter+2+i]*(int)pow(10,fromSize-1-i);
+						}						
+						if(memory[r]>=0 && memory[r]<=8){
+							memory[r]++;
+						}
+						else if(memory[r]==9){
+							memory[r]=0;
+						}
+					}
+				}
+			} break;
+
+		} 
+
 
 	}
 
