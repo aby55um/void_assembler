@@ -190,7 +190,7 @@ int main(void){
 	void assemble(){
 		int currMem = 0;
 		for(int i=0;i<12*24;i++){
-			if((program[i%12][i/12]>='0' && program[i%12][i/12]<='9') || program[i%12][i/12] == 'm' || program[i%12][i/12]=='#' || program[i%12][i/12]=='@' || program[i%12][i/12]=='r' || program[i%12][i/12]=='i' || program[i%12][i/12]==';'){
+			if((program[i%12][i/12]>='0' && program[i%12][i/12]<='9') || program[i%12][i/12] == 'm' || program[i%12][i/12]=='#' || program[i%12][i/12]=='@' || program[i%12][i/12]=='r' || program[i%12][i/12]=='i' || program[i%12][i/12]==';' || program[i%12][i/12]=='t' || program[i%12][i/12]=='j'){
 				if(program[i%12][i/12]>='0' && program[i%12][i/12]<='9'){
 					memory[currMem] = program[i%12][i/12]-'0';
 				} else {
@@ -219,6 +219,14 @@ int main(void){
 						{
 							memory[currMem]=15;
 						} break;
+						case 't':
+						{
+							memory[currMem]=16;
+						} break;
+						case 'j':
+						{
+							memory[currMem]=17;
+						}
 					}
 				}
 				
@@ -415,6 +423,21 @@ int main(void){
 					}
 				}
 			} break;
+			case 16:
+			{
+				if(r1>=r2){
+					flag=0;
+				}
+				else{
+					flag=1;
+				}
+			} break;
+			case 17:
+			{
+				if(flag==0){
+					programCounter=r1;
+				}
+			}		
 
 		} 
 
@@ -494,6 +517,14 @@ int main(void){
 				case 15:
 				{
 					memoryVar = "F";
+				} break;
+				case 16:
+				{
+					memoryVar = "G";
+				} break;
+				case 17:
+				{
+					memoryVar = "H";
 				} break;
 				default:
 				{

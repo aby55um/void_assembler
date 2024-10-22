@@ -39,6 +39,16 @@ ir2;		<- increment register 2
 
 i@80;		<- increment the digit at memory 80
 
+t: test
+
+if r1 >= r2, then the flag register is set to 0
+
+else the flag register is set to 1
+
+j: jump
+
+if the flag is 0, then the program counter is set to the value of r1
+
 assemble a command: left control
 
 run the assembled command: right control	
