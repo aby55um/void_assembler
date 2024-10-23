@@ -447,14 +447,15 @@ int main(void){
 	}
 
 	void run(){
-		while(programCounter<12*24){
+		programCounter = 0;
+		while(programCounter<12*24 && memory[programCounter]!=15){
 			doCommand();
 		}	
 	}
 
 	void step(){
 		doCommand();
-		while(memory[programCounter]!=10 && memory[programCounter]!=13 && memory[programCounter]!=16 && memory[programCounter]!=17 && memory[programCounter]<12*24){
+		while(memory[programCounter]!=10 && memory[programCounter]!=13 && memory[programCounter]!=16 && memory[programCounter]!=17 && memory[programCounter]!=15 && memory[programCounter]<167){
 			programCounter++;
 		}
 	}
@@ -795,6 +796,10 @@ int main(void){
 				}
 				if(IsKeyPressed(KEY_RIGHT_ALT)){
 					step();
+				}
+
+				if(IsKeyPressed(KEY_R)){
+					programCounter=0;
 				}
 
 			}
