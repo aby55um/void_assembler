@@ -192,7 +192,7 @@ int main(void){
 	void assemble(){
 		int currMem = 0;
 		for(int i=0;i<12*24;i++){
-			if((program[i%12][i/12]>='0' && program[i%12][i/12]<='9') || program[i%12][i/12] == 'm' || program[i%12][i/12]=='#' || program[i%12][i/12]=='@' || program[i%12][i/12]=='r' || program[i%12][i/12]=='i' || program[i%12][i/12]==';' || program[i%12][i/12]=='t' || program[i%12][i/12]=='j'){
+			if((program[i%12][i/12]>='0' && program[i%12][i/12]<='9') || program[i%12][i/12] == 'm' || program[i%12][i/12]=='#' || program[i%12][i/12]=='@' || program[i%12][i/12]=='r' || program[i%12][i/12]=='i' || program[i%12][i/12]==';' || program[i%12][i/12]=='t' || program[i%12][i/12]=='j' || program[i%12][i/12]=='d'){
 				if(program[i%12][i/12]>='0' && program[i%12][i/12]<='9'){
 					memory[currMem] = program[i%12][i/12]-'0';
 				} else {
@@ -228,6 +228,10 @@ int main(void){
 						case 'j':
 						{
 							memory[currMem]=17;
+						}
+						case 'd':
+						{
+							memory[currMem]=18;
 						}
 					}
 				}
@@ -425,6 +429,37 @@ int main(void){
 					}
 				}
 			} break;
+			case 18:
+			{
+				switch(memory[programCounter+1]){
+					case 14:
+					{
+						if(memory[programCounter+2]==1){
+							r1--;
+						}
+						else if(memory[programCounter+2]==2){
+							r2--;
+						}
+					} break;
+					case 12:
+					{
+						int k=0;
+						while(memory[programCounter+2+k]>=0 && memory[programCounter+2+k]<=9){
+							fromSize++;
+							k++;
+						}
+						for(int i=0;i<fromSize;i++){
+							r+=memory[programCounter+2+i]*(int)pow(10,fromSize-1-i);
+						}						
+						if(memory[r]>=1 && memory[r]<=9){
+							memory[r]++;
+						}
+						else if(memory[r]==0){
+							memory[r]=9;
+						}
+					}
+				}
+			} break;
 			case 16:
 			{
 				if(r1>=r2){
@@ -455,7 +490,7 @@ int main(void){
 
 	void step(){
 		doCommand();
-		while(memory[programCounter]!=10 && memory[programCounter]!=13 && memory[programCounter]!=16 && memory[programCounter]!=17 && memory[programCounter]!=15 && memory[programCounter]<167){
+		while(memory[programCounter]!=10 && memory[programCounter]!=13 && memory[programCounter]!=16 && memory[programCounter]!=17 && memory[programCounter]!=18 && memory[programCounter]!=15 && memory[programCounter]<167){
 			programCounter++;
 		}
 	}
@@ -536,6 +571,10 @@ int main(void){
 				case 17:
 				{
 					memoryVar = "H";
+				} break;
+				case 18:
+				{
+					memoryVar = "J";
 				} break;
 				default:
 				{

@@ -39,6 +39,12 @@ ir2;		<- increment register 2
 
 i@80;		<- increment the digit at memory 80
 
+d: decrement
+
+dr1;		<- decrement register 1
+
+d@80;		<- decrement the digit at memory 80
+
 t: test
 
 if r1 >= r2, then the flag register is set to 0
