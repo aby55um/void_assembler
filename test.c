@@ -65,7 +65,7 @@ int main(void){
 	int levelSelect = 0;
 	int numberOfLevels = 12;
 	int levelVar;
-	int levelUnlock[12];
+	int levelUnlock[12] = {1,0,0,0,0,0,0,0,0,0,0,0};
 
 	int currentLevel;
 
@@ -744,7 +744,9 @@ int main(void){
 			{
 				for(int i=0; i<3; i++){
 					for (int j=0; j<4; j++){
-						DrawLevelSelector(j,i);
+						if(levelUnlock[4*i+j]==1){
+							DrawLevelSelector(j,i);
+						}
 					}
 				}
 
@@ -754,8 +756,10 @@ int main(void){
 					PlaySound(menuButtonSound);
 				}
 				if(IsKeyPressed(KEY_DOWN)){
-					levelVar = levelSelect + 4;
-					levelSelect = levelVar <= 11 ? levelVar : levelSelect;
+					if(levelUnlock[levelSelect+4]==1){
+						levelVar = levelSelect + 4;
+						levelSelect = levelVar <= 11 ? levelVar : levelSelect;
+					}
 					PlaySound(menuButtonSound);
 				}
 				if(IsKeyPressed(KEY_LEFT)){
@@ -764,8 +768,10 @@ int main(void){
 					PlaySound(menuButtonSound);
 				}
 				if(IsKeyPressed(KEY_RIGHT)){
-					levelVar = (levelSelect + 1) / 4 - levelSelect / 4;
-					levelSelect = levelVar > 0 ? levelSelect : levelSelect + 1;
+					if(levelUnlock[levelSelect+1]==1){
+						levelVar = (levelSelect + 1) / 4 - levelSelect / 4;
+						levelSelect = levelVar > 0 ? levelSelect : levelSelect + 1;
+					}
 					PlaySound(menuButtonSound);
 				}
 				if(IsKeyPressed(KEY_ESCAPE)){

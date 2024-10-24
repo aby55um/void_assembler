@@ -15,7 +15,7 @@ how to compile:
 
 how to play (at the current state of the program):
 
-Continue game -> Choose any of the boxes (levels) to get to the gameplay screen
+Continue game -> Choose any of the unlocked levels to get to the gameplay screen
 
 commands:
 
