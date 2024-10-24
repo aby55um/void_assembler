@@ -6,11 +6,18 @@
 // todo: implement an upper limit to register values
 // todo: fix bugged stepping function
 // todo: fix ; - not to be useless
+// todo: add level progression, save it into a file
+// todo: add level descriptions
+// todo: change the program counter reset key from 'r' to something else
+// todo: solve file operations using raylib, not the C library
+// todo: make it portable (using only raylib)
 
 #include "raylib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 //todo: resizing fucks up the frames
 
@@ -32,6 +39,8 @@ int main(void){
 	Color MyColor;
 
 	int RayWhiteComponent = 245;
+
+	int fd;
 
 	int titleHeight = (int)((double)screenHeight * 0.25);
 	int titleWidth = (int)((double)screenWidth * 0.3);
@@ -56,6 +65,7 @@ int main(void){
 	int levelSelect = 0;
 	int numberOfLevels = 12;
 	int levelVar;
+	int levelUnlock[12];
 
 	int currentLevel;
 
@@ -95,6 +105,19 @@ int main(void){
 			for (int j=0;j<24;j++){
 				program[i][j] = 0;
 			}
+		}
+	}
+
+	void initProgressFile(){
+		if (!FileExists("progress")){
+			levelUnlock[0]=1;
+			for(int i=1;i<12;i++){
+				levelUnlock[i]=0;
+			}
+			fd=open("./progress", O_CREAT | O_RDWR, 0666);
+			char buf[300] = "1: unlocked\n\n2: locked\n\n3: locked\n\n4: locked\n\n5: locked\n\n6: locked\n\n7: locked\n\n8: locked\n\n9: locked\n\n10: locked\n\n11: locked\n\n12: locked\n\n";
+			write(fd,buf,136);
+			
 		}
 	}
 
@@ -621,6 +644,8 @@ int main(void){
 	SetTargetFPS(fps);
 
 	initProgram();
+
+	initProgressFile();
 	
 
 	while(!WindowShouldClose()){
