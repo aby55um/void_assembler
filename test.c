@@ -41,6 +41,7 @@ int main(void){
 	int RayWhiteComponent = 245;
 
 	int fd;
+	//FILE *fdFile;
 
 	int titleHeight = (int)((double)screenHeight * 0.25);
 	int titleWidth = (int)((double)screenWidth * 0.3);
@@ -65,7 +66,7 @@ int main(void){
 	int levelSelect = 0;
 	int numberOfLevels = 12;
 	int levelVar;
-	int levelUnlock[12] = {1,0,0,0,0,0,0,0,0,0,0,0};
+	int unlockedLevel=1;
 
 	int currentLevel;
 
@@ -110,14 +111,14 @@ int main(void){
 
 	void initProgressFile(){
 		if (!FileExists("progress")){
-			levelUnlock[0]=1;
-			for(int i=1;i<12;i++){
-				levelUnlock[i]=0;
-			}
+			unlockedLevel=1;
 			fd=open("./progress", O_CREAT | O_RDWR, 0666);
-			char buf[300] = "1: unlocked\n\n2: locked\n\n3: locked\n\n4: locked\n\n5: locked\n\n6: locked\n\n7: locked\n\n8: locked\n\n9: locked\n\n10: locked\n\n11: locked\n\n12: locked\n\n";
-			write(fd,buf,136);
-			
+			//fdFile = fd;
+			char buf[1] = "1";
+			write(fd,buf,1);	
+		}
+		else {
+			//unlockedLevel=fgetc(fdFile);
 		}
 	}
 
@@ -744,7 +745,7 @@ int main(void){
 			{
 				for(int i=0; i<3; i++){
 					for (int j=0; j<4; j++){
-						if(levelUnlock[4*i+j]==1){
+						if(4*i+j<unlockedLevel){
 							DrawLevelSelector(j,i);
 						}
 					}
@@ -756,7 +757,7 @@ int main(void){
 					PlaySound(menuButtonSound);
 				}
 				if(IsKeyPressed(KEY_DOWN)){
-					if(levelUnlock[levelSelect+4]==1){
+					if(levelSelect+4<unlockedLevel){
 						levelVar = levelSelect + 4;
 						levelSelect = levelVar <= 11 ? levelVar : levelSelect;
 					}
@@ -768,7 +769,7 @@ int main(void){
 					PlaySound(menuButtonSound);
 				}
 				if(IsKeyPressed(KEY_RIGHT)){
-					if(levelUnlock[levelSelect+1]==1){
+					if(levelSelect+1<unlockedLevel){
 						levelVar = (levelSelect + 1) / 4 - levelSelect / 4;
 						levelSelect = levelVar > 0 ? levelSelect : levelSelect + 1;
 					}
