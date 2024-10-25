@@ -216,7 +216,7 @@ int main(void){
 	void assemble(){
 		int currMem = 0;
 		for(int i=0;i<12*24;i++){
-			if((program[i%12][i/12]>='0' && program[i%12][i/12]<='9') || program[i%12][i/12] == 'm' || program[i%12][i/12]=='#' || program[i%12][i/12]=='@' || program[i%12][i/12]=='r' || program[i%12][i/12]=='i' || program[i%12][i/12]==';' || program[i%12][i/12]=='t' || program[i%12][i/12]=='j' || program[i%12][i/12]=='d'){
+			if((program[i%12][i/12]>='0' && program[i%12][i/12]<='9') || program[i%12][i/12] == 'm' || program[i%12][i/12]=='#' || program[i%12][i/12]=='@' || program[i%12][i/12]=='r' || program[i%12][i/12]=='i' || program[i%12][i/12]==';' || program[i%12][i/12]=='t' || program[i%12][i/12]=='j' || program[i%12][i/12]=='d' || program[i%12][i/12]=='x' || program[i%12][i/12]=='y'){
 				if(program[i%12][i/12]>='0' && program[i%12][i/12]<='9'){
 					memory[currMem] = program[i%12][i/12]-'0';
 				} else {
@@ -252,11 +252,19 @@ int main(void){
 						case 'j':
 						{
 							memory[currMem]=17;
-						}
+						} break;
 						case 'd':
 						{
 							memory[currMem]=18;
-						}
+						} break;
+						case 'x':
+						{
+							memory[currMem]=19;
+						} break;
+						case 'y':
+						{
+							memory[currMem]=20;
+						} break;
 					}
 				}
 				
@@ -323,8 +331,7 @@ int main(void){
 						for(int k=0;k<memLength;k++){
 							fromIndex += (int)pow(10,memLength-1-k)*memory[programCounter+2+k];
 						}
-
-
+						
 						fromRevIndex++;
 						toRevIndex++;
 						int fromRevSize = 0;
@@ -336,20 +343,22 @@ int main(void){
 						}
 						toRevIndex += 1;
 
+
 						fromSize=0;
 						for(int k=0;k<fromRevSize;k++){
 							fromSize += (int)pow(10,fromRevSize-1-k)*memory[programCounter+1+fromRevIndex+k];
 						}
-
+			
 						toIndex = i;
 						while(memory[programCounter+3+i]>=0 && memory[programCounter+3+i]<=9){
 							toMemLength++;
 							i++;
 						}
-
+			
 						for(int k=0;k<toMemLength;k++){
 							toMem+= (int)pow(10,toMemLength-1-k)*memory[programCounter+3+toIndex+k];
 						}
+						
 						
 					} break;
 					case 14:
@@ -384,16 +393,22 @@ int main(void){
 						case 12:
 						{
 							for(int i=0;i<fromSize;i++){
+								if(!(memory[fromIndex+i]>=0 && memory[fromIndex+i]<=9)){
+									fromSize = i;
+									break;
+								}
 								memory[toMem + i] = memory[fromIndex+i];
 							}
+							memory[toMem + fromSize]=19;
 						} break;
 						case 14:
 						{	
-							if(memory[programCounter+toRevIndex+1]==1){
-								r=r1;
-							}
-							else if(memory[programCounter+toRevIndex+1]==2){
-								r=r2;
+							r=0;
+							for(int i=0;i<fromSize;i++){
+								if(!(memory[fromIndex+i]>=0 && memory[fromIndex+i]<=9)){
+									fromSize=i;
+									break;
+								}
 							}
 							for(int i=0;i<fromSize;i++){
 								r += memory[fromIndex+i] * (int)pow(10,fromSize-1-i);
@@ -409,9 +424,12 @@ int main(void){
 				} else if(memory[programCounter+1]==14){
 					switch(memory[programCounter+3]){
 						case 12:
+						{
 							for(int i=0;i<fromSize;i++){
 								memory[toMem + i] = (r1/(int)pow(10,fromSize-1-i))%10;
-							} break;
+							}
+							memory[toMem+fromSize]=19;
+						} break;
 						case 14:
 							if(memory[programCounter+4]==1){
 								r1=r;
@@ -600,6 +618,14 @@ int main(void){
 				{
 					memoryVar = "J";
 				} break;
+				case 19:
+				{
+					memoryVar = "K";
+				} break;
+				case 20:
+				{
+					memoryVar = "L";
+				}
 				default:
 				{
 					memoryVar = "?";
@@ -869,7 +895,7 @@ int main(void){
 					step();
 				}
 
-				if(IsKeyPressed(KEY_R)){
+				if(IsKeyPressed(KEY_Q)){
 					programCounter=0;
 				}
 
