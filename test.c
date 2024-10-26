@@ -112,13 +112,15 @@ int main(void){
 	void initProgressFile(){
 		if (!FileExists("progress")){
 			unlockedLevel=1;
-			fd=open("./progress", O_CREAT | O_RDWR, 0666);
-			//fdFile = fd;
-			char buf[1] = "1";
-			write(fd,buf,1);	
+			FILE *fptr = fopen("progress", "w");
+			char buf[2] = "01";
+			fprintf(fptr,"01");	
 		}
 		else {
-			//unlockedLevel=fgetc(fdFile);
+			FILE *fptr = fopen("progress", "r");
+			char level[4];
+			fgets(level,4,fptr);
+			unlockedLevel = (level[0]-'0')*10+level[1]-'0';
 		}
 	}
 
@@ -898,6 +900,8 @@ int main(void){
 				if(IsKeyPressed(KEY_Q)){
 					programCounter=0;
 				}
+
+				r1=unlockedLevel;
 
 			}
 		}
