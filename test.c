@@ -113,15 +113,45 @@ int main(void){
 		if (!FileExists("progress")){
 			unlockedLevel=1;
 			FILE *fptr = fopen("progress", "w");
-			char buf[2] = "01";
-			fprintf(fptr,"01");	
+			fprintf(fptr,"01\n");
+			fclose(fptr);	
 		}
 		else {
 			FILE *fptr = fopen("progress", "r");
 			char level[4];
 			fgets(level,4,fptr);
 			unlockedLevel = (level[0]-'0')*10+level[1]-'0';
+			fclose(fptr);
 		}
+	}
+
+	void writeToLevelFile(){
+		
+		char levelFileName[8] = "level01";
+		r1=(currentLevel+1)%10;
+		levelFileName[5] = ((currentLevel+1)/10)+'0';
+		levelFileName[6] = ((currentLevel+1)%10)+'0';
+		levelFileName[7] = 0;
+
+		char linProg[12*24];
+
+		int i=0;
+		int j=0;
+		while(j<12){
+			for(int k=0;k<programTextEnd[j];k++){
+				linProg[i]=program[k][j];
+				i++;
+			}
+			linProg[i]='\n';
+			i++;
+			j++;
+		}
+
+
+		FILE *fptr = fopen(levelFileName,"w");
+		fprintf(fptr,"%s",linProg);		
+		fclose(fptr);
+		
 	}
 
 	void DrawGameCursor(int posX, int posY){
@@ -872,17 +902,22 @@ int main(void){
 					moveCursorRight(false);
 				}
 
-				if(IsKeyPressed(KEY_ENTER)){
-					newLine();
-				}
+				if(true){
 
-				pressedChar = GetCharPressed();
-				if(pressedChar){
-					typeChar(pressedChar);
-				}
+					if(IsKeyPressed(KEY_ENTER)){
+						newLine();
+					}
 
-				if(IsKeyPressed(KEY_BACKSPACE)){
-					deleteChar();
+					pressedChar = GetCharPressed();
+					if(pressedChar){
+						typeChar(pressedChar);
+					}
+
+					if(IsKeyPressed(KEY_BACKSPACE)){
+						deleteChar();
+					}
+
+					writeToLevelFile();
 				}
 
 				drawProgram();
@@ -900,8 +935,6 @@ int main(void){
 				if(IsKeyPressed(KEY_Q)){
 					programCounter=0;
 				}
-
-				r1=unlockedLevel;
 
 			}
 		}
