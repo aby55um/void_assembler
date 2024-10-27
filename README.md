@@ -4,6 +4,7 @@ simple low-level programming game
 license: CC BY-NC-ND 4.0
 
 tested on a Remnux distribution
+This only works on Linux
 
 how to compile:
 1. install raylib ( https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux )

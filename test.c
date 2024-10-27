@@ -128,7 +128,6 @@ int main(void){
 	void writeToLevelFile(){
 		
 		char levelFileName[8] = "level01";
-		r1=(currentLevel+1)%10;
 		levelFileName[5] = ((currentLevel+1)/10)+'0';
 		levelFileName[6] = ((currentLevel+1)%10)+'0';
 		levelFileName[7] = 0;
