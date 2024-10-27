@@ -11,6 +11,7 @@
 // todo: change the program counter reset key from 'r' to something else
 // todo: solve file operations using raylib, not the C library
 // todo: make it portable (using only raylib)
+// todo: add error handling
 
 #include "raylib.h"
 #include <stdio.h>
@@ -67,6 +68,7 @@ int main(void){
 	int numberOfLevels = 12;
 	int levelVar;
 	int unlockedLevel=1;
+	//bool levelInitialized = false;
 
 	int currentLevel;
 
@@ -101,13 +103,6 @@ int main(void){
 
 	int pressedChar;
 
-	void initProgram(){
-		for(int i=0; i<12; i++){
-			for (int j=0;j<24;j++){
-				program[i][j] = 0;
-			}
-		}
-	}
 
 	void initProgressFile(){
 		if (!FileExists("progress")){
@@ -232,6 +227,48 @@ int main(void){
 			}
 			gameCursorPosX = 0;
 			gameCursorPosY += 1;
+		}
+	}
+
+	void initProgram(){
+		for(int i=0; i<12; i++){
+			for (int j=0;j<24;j++){
+				program[i][j] = 0;
+			}
+		}
+	}
+
+	void initLevel(){
+		char levelFileName[8] = "level01";
+		levelFileName[5] = ((currentLevel+1)/10)+'0';
+		levelFileName[6] = ((currentLevel+1)%10)+'0';
+		levelFileName[7] = 0;
+
+		if(FileExists(levelFileName)){
+
+			for(int i=0; i<24; i++){
+				programTextEnd[i]=0;
+			}
+
+			FILE *fptr = fopen(levelFileName, "r");
+
+			int progLine=0;
+			int charPos=0;
+
+			for(char c=getc(fptr);c!=EOF;c=getc(fptr)){
+				if(c!='\n'){
+					//typeChar(c);
+					program[charPos][progLine]=c;
+					charPos++;
+					programTextEnd[progLine]++;
+				}
+				else {
+					//newLine();
+					progLine++;
+					charPos=0;
+				}
+			}
+			fclose(fptr);
 		}
 	}
 
@@ -840,6 +877,7 @@ int main(void){
 					currentScreen = GAMEPLAY;
 					currentLevel = levelSelect;
 					levelSelect = 0;
+					initLevel();
 				}
 
 				//todo: rows and columns instead of hardcoded numbers
@@ -887,6 +925,7 @@ int main(void){
 
 				DrawMemory();
 				DrawGameCursor(gameCursorPosX, gameCursorPosY);
+
 
 				if(IsKeyPressed(KEY_UP)){
 					moveCursorUp();	
