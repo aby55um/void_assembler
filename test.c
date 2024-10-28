@@ -69,6 +69,7 @@ int main(void){
 	int numberOfLevels = 12;
 	int levelVar;
 	int unlockedLevel=1;
+	char levelText[12][20] = {"Addition", "asdf", "asdf", "asdf","asdf","asdf","asdf", "asdf", "asdf","asdf","asdf","asdf"};
 	//bool levelInitialized = false;
 
 	int currentLevel;
@@ -726,6 +727,7 @@ int main(void){
 		DrawRectangle(coordX * screenWidth * 0.2 + screenWidth * 0.27, coordY * screenHeight * 0.3 + screenHeight * 0.13, screenWidth * 0.007, screenWidth * 0.095, MyColor);
 		DrawRectangle(coordX * screenWidth * 0.2 + screenWidth * 0.127, coordY * screenHeight * 0.3 + screenHeight * 0.13, screenWidth * 0.144, screenWidth * 0.007, MyColor);
 		DrawRectangle(coordX * screenWidth * 0.2 + screenWidth * 0.127, coordY * screenHeight * 0.3 + screenHeight * 0.279, screenWidth * 0.144, screenWidth * 0.007, MyColor);
+		DrawText(levelText[coordY*4+coordX], coordX * screenWidth * 0.2 + screenWidth * 0.15, coordY * screenHeight * 0.3 + screenHeight * 0.15, 0.025 * screenWidth, MyColor);
 	}
 
 
