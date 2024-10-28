@@ -69,7 +69,8 @@ int main(void){
 	int numberOfLevels = 12;
 	int levelVar;
 	int unlockedLevel=1;
-	char levelText[12][20] = {"Addition", "asdf", "asdf", "asdf","asdf","asdf","asdf", "asdf", "asdf","asdf","asdf","asdf"};
+	char levelText[12][20] = {"Addition"};
+	char levelObjectives[12][100] = {"Add r1 and r2\n\nStore the result\nat memory 0x80"};
 	//bool levelInitialized = false;
 
 	int currentLevel;
@@ -904,6 +905,8 @@ int main(void){
 				DrawText("R2", 0.72 * screenWidth, 0.27 * screenHeight, 0.019 * screenWidth, MyColor);
 				DrawText("Stack Pointer", 0.72 * screenWidth, 0.32 * screenHeight, 0.019 * screenWidth, MyColor);
 				DrawText("Flags", 0.72 * screenWidth, 0.37 * screenHeight, 0.019 * screenWidth, MyColor);
+
+				DrawText(levelObjectives[currentLevel],0.72*screenWidth, 0.55*screenHeight, 0.019*screenWidth, MyColor);
 
 				programCounterString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
 				r1String = malloc(snprintf(NULL,0,"%d",programCounter)+1);
