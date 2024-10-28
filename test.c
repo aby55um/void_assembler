@@ -92,6 +92,29 @@ int main(void){
 	int memory[168];
 	char *memoryVar = malloc(sizeof(int)+1);
 
+	struct levelLayout{
+		int memory[168];
+		int r1;
+		int r2;
+		int programCounter;
+		int flag;
+	};
+
+	struct levelLayout levelLayout[12];
+
+	for(int i=0;i<12;i++){
+		for(int j=0;j<168;j++){
+			levelLayout[i].memory[j]=0;
+		}
+		levelLayout[i].r1=0;
+		levelLayout[i].r2=0;
+		levelLayout[i].programCounter=0;
+		levelLayout[i].flag=0;
+	}
+
+	levelLayout[0].r1=20;
+	levelLayout[0].r2=20;
+
 	char *memoryPlaceHolder[21] = {"0:","8:","10:","18:","20:","28:","30:","38:","40:","48:","50:","58:","60:","68:","70:","78:","80:","88:","90:","98:","A0:"};
 
 	for(int i=0;i<168;i++){
@@ -273,6 +296,14 @@ int main(void){
 			}
 			fclose(fptr);
 		}
+
+		for(int i=0;i<186;i++){
+			memory[i]=levelLayout[currentLevel].memory[i];
+		}
+		r1=levelLayout[currentLevel].r1;
+		r2=levelLayout[currentLevel].r2;
+		programCounter=levelLayout[currentLevel].programCounter;
+		flag=levelLayout[currentLevel].flag;
 	}
 
 	void drawProgram(){
