@@ -535,7 +535,7 @@ int main(void){
 						case 12:
 						{
 							for(int i=0;i<fromSize;i++){
-								memory[toMem + i] = (r1/(int)pow(10,fromSize-1-i))%10;
+								memory[toMem + i] = (r/(int)pow(10,fromSize-1-i))%10;
 							}
 							memory[toMem+fromSize]=19;
 						} break;
