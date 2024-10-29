@@ -5,13 +5,15 @@
 // todo: complete refactoring and cleaning of code
 // todo: implement an upper limit to register values
 // todo: fix bugged stepping function
-// todo: fix ; - not to be useless
+// todo: fix ; - not to be almost useless
 // todo: add level progression, save it into a file
 // todo: add level descriptions
 // todo: change the program counter reset key from 'r' to something else
 // todo: solve file operations using raylib, not the C library
 // todo: make it portable (using only raylib)
 // todo: add error handling
+// todo: fix faulty save/load from file, "ghost lines"
+// todo: fix faulty write command from register to memory
 
 
 #include "raylib.h"
@@ -78,7 +80,7 @@ int main(void){
 	int programCounter = 0;
 	int r1 = 0;
 	int r2 = 0;
-	int jump = 0;
+	int r3 = 0;
 	int flag = 0;
 
 	char *programCounterString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
@@ -459,10 +461,9 @@ int main(void){
 			
 						for(int k=0;k<toMemLength;k++){
 							toMem+= (int)pow(10,toMemLength-1-k)*memory[programCounter+3+toIndex+k];
-						}
-						
-						
+						}						
 					} break;
+					
 					case 14:
 					{
 						if(memory[programCounter+2]==1){
@@ -470,6 +471,9 @@ int main(void){
 						}
 						else if(memory[programCounter+2]==2){
 							r=r2;
+						}
+						else if(memory[programCounter+2]==3){
+							r=r3;
 						}
 						if(r==0){
 							fromSize = 1;
@@ -521,6 +525,9 @@ int main(void){
 							else if(memory[programCounter+toRevIndex+1]==2){
 								r2=r;
 							}
+							else if(memory[programCounter+toRevIndex+1]==3){
+								r3=r;
+							}
 						} break;
 					}
 				} else if(memory[programCounter+1]==14){
@@ -538,6 +545,9 @@ int main(void){
 							}
 							else if(memory[programCounter+4]==2){
 								r2=r;
+							}
+							else if(memory[programCounter+4]==3){
+								r3=r;
 							}
 					}
 				}
@@ -934,7 +944,7 @@ int main(void){
 				DrawText("Instruction", 0.72 * screenWidth, 0.17 * screenHeight, 0.019 * screenWidth, MyColor);
 				DrawText("R1", 0.72 * screenWidth, 0.22 * screenHeight, 0.019 * screenWidth, MyColor);
 				DrawText("R2", 0.72 * screenWidth, 0.27 * screenHeight, 0.019 * screenWidth, MyColor);
-				DrawText("Jump Pointer", 0.72 * screenWidth, 0.32 * screenHeight, 0.019 * screenWidth, MyColor);
+				DrawText("R3 (Jump)", 0.72 * screenWidth, 0.32 * screenHeight, 0.019 * screenWidth, MyColor);
 				DrawText("Flags", 0.72 * screenWidth, 0.37 * screenHeight, 0.019 * screenWidth, MyColor);
 
 				DrawText(levelObjectives[currentLevel],0.72*screenWidth, 0.55*screenHeight, 0.019*screenWidth, MyColor);
@@ -954,7 +964,7 @@ int main(void){
 				snprintf(r2String, snprintf(NULL,0,"%d",r2) + 1,"%d", r2);
 				DrawText(r2String, 0.87 * screenWidth, 0.27 * screenHeight, 0.019 * screenWidth, MyColor);
 
-				snprintf(jumpString, snprintf(NULL,0,"%d",jump) + 1,"%d", jump);
+				snprintf(jumpString, snprintf(NULL,0,"%d",r3) + 1,"%d", r3);
 				DrawText(jumpString, 0.87 * screenWidth, 0.32 * screenHeight, 0.019 * screenWidth, MyColor);
 
 				snprintf(flagString, snprintf(NULL,0,"%d",flag) + 1,"%d", flag);
@@ -1008,7 +1018,10 @@ int main(void){
 				}
 
 				if(IsKeyPressed(KEY_Q)){
-					programCounter=0;
+					initLevel();
+				}
+				if(IsKeyPressed(KEY_ESCAPE)){
+					currentScreen=LEVEL_SELECT;
 				}
 
 			}
