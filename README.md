@@ -54,7 +54,7 @@ else the flag register is set to 1
 
 j: jump
 
-if the flag is 0, then the program counter is set to the value of r1
+if the flag is 0, then the program counter is set to the value of the jump register
 
 assemble a command: left control
 

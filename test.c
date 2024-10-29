@@ -78,13 +78,13 @@ int main(void){
 	int programCounter = 0;
 	int r1 = 0;
 	int r2 = 0;
-	int stack = 80;
+	int jump = 0;
 	int flag = 0;
 
 	char *programCounterString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
 	char *r1String = malloc(snprintf(NULL,0,"%d",programCounter)+1);
 	char *r2String = malloc(snprintf(NULL,0,"%d",programCounter)+1);
-	char *stackString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
+	char *jumpString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
 	char *flagString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
 
 
@@ -934,7 +934,7 @@ int main(void){
 				DrawText("Instruction", 0.72 * screenWidth, 0.17 * screenHeight, 0.019 * screenWidth, MyColor);
 				DrawText("R1", 0.72 * screenWidth, 0.22 * screenHeight, 0.019 * screenWidth, MyColor);
 				DrawText("R2", 0.72 * screenWidth, 0.27 * screenHeight, 0.019 * screenWidth, MyColor);
-				DrawText("Stack Pointer", 0.72 * screenWidth, 0.32 * screenHeight, 0.019 * screenWidth, MyColor);
+				DrawText("Jump Pointer", 0.72 * screenWidth, 0.32 * screenHeight, 0.019 * screenWidth, MyColor);
 				DrawText("Flags", 0.72 * screenWidth, 0.37 * screenHeight, 0.019 * screenWidth, MyColor);
 
 				DrawText(levelObjectives[currentLevel],0.72*screenWidth, 0.55*screenHeight, 0.019*screenWidth, MyColor);
@@ -942,7 +942,7 @@ int main(void){
 				programCounterString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
 				r1String = malloc(snprintf(NULL,0,"%d",programCounter)+1);
 				r2String = malloc(snprintf(NULL,0,"%d",programCounter)+1);
-				stackString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
+				jumpString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
 				flagString = malloc(snprintf(NULL,0,"%d",programCounter)+1);
 				
 				snprintf(programCounterString, snprintf(NULL,0,"%d",programCounter) + 1,"%d", programCounter);
@@ -954,8 +954,8 @@ int main(void){
 				snprintf(r2String, snprintf(NULL,0,"%d",r2) + 1,"%d", r2);
 				DrawText(r2String, 0.87 * screenWidth, 0.27 * screenHeight, 0.019 * screenWidth, MyColor);
 
-				snprintf(stackString, snprintf(NULL,0,"%d",stack) + 1,"%d", stack);
-				DrawText(stackString, 0.87 * screenWidth, 0.32 * screenHeight, 0.019 * screenWidth, MyColor);
+				snprintf(jumpString, snprintf(NULL,0,"%d",jump) + 1,"%d", jump);
+				DrawText(jumpString, 0.87 * screenWidth, 0.32 * screenHeight, 0.019 * screenWidth, MyColor);
 
 				snprintf(flagString, snprintf(NULL,0,"%d",flag) + 1,"%d", flag);
 				DrawText(flagString, 0.87 * screenWidth, 0.37 * screenHeight, 0.019 * screenWidth, MyColor);
