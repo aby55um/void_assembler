@@ -629,7 +629,7 @@ int main(void){
 			case 17:
 			{
 				if(flag==0){
-					programCounter=r1;
+					programCounter=r3;
 				}
 			} break;		
 
