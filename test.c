@@ -291,6 +291,9 @@ int main(void){
 					programTextEnd[progLine]++;
 				}
 				else {
+					for(int i=charPos;i<12;i++){
+						program[charPos+i][progLine]=0;
+					}
 					//newLine();
 					progLine++;
 					charPos=0;
@@ -921,7 +924,7 @@ int main(void){
 				if(IsKeyPressed(KEY_ENTER)){
 					currentScreen = GAMEPLAY;
 					currentLevel = levelSelect;
-					levelSelect = 0;
+					//levelSelect = 0;
 					initLevel();
 				}
 
