@@ -1,19 +1,15 @@
 // todo: increase memory, fix resolution and full screen, create different files for different functionalities
 // todo: refactoring (create config variables, save them into a file), multiple cursor actions when holding a button
 // todo: add all the menus and the transition between them, add instructions, whitespace handling in code
-// todo: fix character delete bug
 // todo: complete refactoring and cleaning of code
 // todo: implement an upper limit to register values
 // todo: fix bugged stepping function
 // todo: fix ; - not to be almost useless
 // todo: add level progression, save it into a file
 // todo: add level descriptions
-// todo: change the program counter reset key from 'r' to something else
 // todo: solve file operations using raylib, not the C library
 // todo: make it portable (using only raylib)
 // todo: add error handling
-// todo: fix faulty save/load from file, "ghost lines"
-// todo: fix faulty write command from register to memory
 
 
 #include "raylib.h"
@@ -23,7 +19,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-//todo: resizing fucks up the frames
 
 typedef enum GameScreen {LOGO = 0, TITLE, MENU, LEVEL_SELECT, GAMEPLAY, ENDING} GameScreen;
 
@@ -73,7 +68,6 @@ int main(void){
 	int unlockedLevel=1;
 	char levelText[12][20] = {"Addition"};
 	char levelObjectives[12][100] = {"Add r1 and r2\n\nStore the result\nat memory 0x80"};
-	//bool levelInitialized = false;
 
 	int currentLevel;
 
@@ -262,7 +256,6 @@ int main(void){
 		}	
 	}
 
-	//todo: newline
 	void newLine(){
 		if(programTextEnd[23]==0){
 			for(int i = 22;i > gameCursorPosY; i--){
@@ -318,7 +311,6 @@ int main(void){
 					for(int i=charPos;i<12;i++){
 						program[charPos+i][progLine]=0;
 					}
-					//newLine();
 					progLine++;
 					charPos=0;
 				}
@@ -801,7 +793,7 @@ int main(void){
 
 
 	InitWindow(screenWidth, screenHeight, title);
-	//ToggleFullscreen(); // It fucks up the OS resolution
+	//ToggleFullscreen(); // Messes up the OS resolution 
 	SetExitKey(0);
 
 	InitAudioDevice();
@@ -892,10 +884,6 @@ int main(void){
 						} break;
 					}
 				}
-
-				/*if(!IsSoundPlaying(menuSound)){
-					PlaySound(menuSound);
-				}*/
 
 				ClearBackground(BLACK);
 				DrawText(title, titleWidth, titleHeight, titleSize, MyColor);
