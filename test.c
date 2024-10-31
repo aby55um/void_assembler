@@ -265,11 +265,14 @@ int main(void){
 				for(int j=0; j<12; j++){
 					program[j][i+1] = program[j][i];
 				}
+				programTextEnd[i+1]=programTextEnd[i];
 			}
 			for(int i=gameCursorPosX;i<12;i++){
 				program[i-gameCursorPosX][gameCursorPosY+1]=program[i][gameCursorPosY];
 				program[i][gameCursorPosY]=0;
 			}
+			programTextEnd[gameCursorPosY+1]=programTextEnd[gameCursorPosY] - gameCursorPosX;
+			programTextEnd[gameCursorPosY]=gameCursorPosX;
 			gameCursorPosX = 0;
 			gameCursorPosY += 1;
 		}
