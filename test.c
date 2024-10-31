@@ -235,6 +235,9 @@ int main(void){
 			deleteChar();
 		} else if(gameCursorPosX==0 && gameCursorPosY>0 && programTextEnd[gameCursorPosY-1]==0){
 			for(int i=gameCursorPosY;i<24;i++){
+				if(programTextEnd[i]==0){
+					programTextEnd[i-1]=0;
+				}
 				for(int j=0;j<programTextEnd[i];j++){
 					program[j][i-1]=program[j][i];
 					programTextEnd[i-1]=programTextEnd[i];
