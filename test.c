@@ -249,13 +249,13 @@ int main(void){
 			moveCursorUp();
 		} else if(gameCursorPosX==0){
 		} else {
-			for(int i=gameCursorPosX+1;i<programTextEnd[gameCursorPosY];i++){
+			for(int i=gameCursorPosX;i<programTextEnd[gameCursorPosY];i++){
 				program[i-1][gameCursorPosY]=program[i][gameCursorPosY];
 			}
 			program[programTextEnd[gameCursorPosY]-1][gameCursorPosY]=0;
 			programTextEnd[gameCursorPosY]-=1;
 			moveCursorLeft();
-		}
+		}	
 	}
 
 	//todo: newline
