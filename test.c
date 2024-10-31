@@ -230,8 +230,24 @@ int main(void){
 	}
 
 	void deleteChar(){
-		if(gameCursorPosX==0){
+		if(gameCursorPosX==0 && gameCursorPosY>0 && programTextEnd[gameCursorPosY-1]>0){
 			moveCursorLeft();
+			deleteChar();
+		} else if(gameCursorPosX==0 && gameCursorPosY>0 && programTextEnd[gameCursorPosY-1]==0){
+			for(int i=gameCursorPosY;i<24;i++){
+				for(int j=0;j<programTextEnd[i];j++){
+					program[j][i-1]=program[j][i];
+					programTextEnd[i-1]=programTextEnd[i];
+				}
+				for(int j=programTextEnd[i];j<12;j++){
+					program[j][i-1]=0;
+				}
+			}
+			for(int i=0;i<programTextEnd[23];i++){
+				program[i][23]=0;
+			}
+			moveCursorUp();
+		} else if(gameCursorPosX==0){
 		} else {
 			for(int i=gameCursorPosX+1;i<programTextEnd[gameCursorPosY];i++){
 				program[i-1][gameCursorPosY]=program[i][gameCursorPosY];
@@ -990,6 +1006,9 @@ int main(void){
 				if(IsKeyPressed(KEY_RIGHT)){
 					moveCursorRight(false);
 				}
+
+				r1=programTextEnd[gameCursorPosY];
+				r2=gameCursorPosY;
 
 				if(true){
 
