@@ -246,6 +246,7 @@ int main(void){
 			for(int i=0;i<programTextEnd[23];i++){
 				program[i][23]=0;
 			}
+			programTextEnd[23]=0;
 			moveCursorUp();
 		} else if(gameCursorPosX==0){
 		} else {
