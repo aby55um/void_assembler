@@ -159,7 +159,7 @@ int main(void){
 
 		int i=0;
 		int j=0;
-		while(j<12){
+		while(j<24){
 			for(int k=0;k<programTextEnd[j];k++){
 				linProg[i]=program[k][j];
 				i++;
@@ -168,6 +168,7 @@ int main(void){
 			i++;
 			j++;
 		}
+		linProg[i]=0;
 
 
 		FILE *fptr = fopen(levelFileName,"w");
@@ -629,7 +630,7 @@ int main(void){
 			case 17:
 			{
 				if(flag==0){
-					programCounter=r3;
+					programCounter=r3-1;
 				}
 			} break;		
 
@@ -1009,6 +1010,7 @@ int main(void){
 				}
 
 				drawProgram();
+
 
 				if(IsKeyPressed(KEY_LEFT_CONTROL)){
 					assemble();
