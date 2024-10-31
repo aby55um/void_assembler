@@ -1014,9 +1014,6 @@ int main(void){
 					moveCursorRight(false);
 				}
 
-				r1=programTextEnd[gameCursorPosY];
-				r2=gameCursorPosY;
-
 				if(true){
 
 					if(IsKeyPressed(KEY_ENTER)){
