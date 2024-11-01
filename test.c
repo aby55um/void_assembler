@@ -10,7 +10,8 @@
 // todo: solve file operations using raylib, not the C library
 // todo: make it portable (using only raylib)
 // todo: add error handling
-
+// todo: more sophisticated level solution testing
+// todo: fix level file creation bug (new level shows the program of the previous level)
 
 #include "raylib.h"
 #include <stdio.h>
@@ -668,6 +669,36 @@ int main(void){
 		}
 	}
 
+	void levelPassed(){
+		if(currentLevel+1==unlockedLevel){
+			unlockedLevel++;
+			currentLevel++;
+			currentScreen = LEVEL_SELECT;
+			char tempLevel[2];
+			if(unlockedLevel<10){
+				tempLevel[0]='0';
+			} else if(unlockedLevel>=10){
+				tempLevel[0]='1';
+			}
+			tempLevel[1]=unlockedLevel%10+'0';
+			tempLevel[2]=0;
+			FILE *fptr = fopen("progress", "w");
+			fprintf(fptr,"%s",tempLevel);
+			fclose(fptr);	
+		}
+	}
+
+	void testCurrentLevel(){
+		switch(currentLevel){
+			case 0:
+			{
+				if(memory[128]==4 && memory[129]==0){
+					levelPassed();
+				}
+			} 
+		}
+	}
+
 
 	void DrawMemory(){
 		for(int i=0;i<168;i++){
@@ -1028,6 +1059,7 @@ int main(void){
 				}
 				if(IsKeyPressed(KEY_RIGHT_CONTROL)){
 					run();
+					testCurrentLevel();
 				}
 				if(IsKeyPressed(KEY_RIGHT_ALT)){
 					step();
