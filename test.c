@@ -67,8 +67,8 @@ int main(void){
 	int numberOfLevels = 12;
 	int levelVar;
 	int unlockedLevel=1;
-	char levelText[12][20] = {"Addition"};
-	char levelObjectives[12][100] = {"Add r1 and r2\n\nStore the result\nat memory 0x80"};
+	char levelText[12][20] = {"Add", "Multiply"};
+	char levelObjectives[12][100] = {"Add r1 and r2\n\nStore the result\nat memory 0x80", "Multiply r1 and r2\n\nStore the result\nat memory 0x80"};
 
 	int currentLevel;
 
