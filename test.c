@@ -443,45 +443,48 @@ int main(void){
 						int fromRevIndex = 0;
 						int memLength = 0;
 						int i=0;
-						while(memory[programCounter+1+i]!=11){
+						do{
 							i++;
 							memLength++;
 							fromRevIndex++;
 							toRevIndex++;
-						}
-						memLength--;
+						} while(memory[programCounter+1+i]>=0 && memory[programCounter+1+i]<=9);
 
-						fromIndex = 0;
-						for(int k=0;k<memLength;k++){
-							fromIndex += (int)pow(10,memLength-1-k)*memory[programCounter+2+k];
-						}
-						
-						fromRevIndex++;
-						toRevIndex++;
-						int fromRevSize = 0;
+						if(memory[programCounter+1+i]==11){
+							memLength--;
 
-						while(memory[programCounter+2+i]>=0 && memory[programCounter+2+i]<=9){
-							fromRevSize++;
+							fromIndex = 0;
+							for(int k=0;k<memLength;k++){
+								fromIndex += (int)pow(10,memLength-1-k)*memory[programCounter+2+k];
+							}
+							
+							fromRevIndex++;
 							toRevIndex++;
-							i++;
-						}
-						toRevIndex += 1;
+							int fromRevSize = 0;
+
+							while(memory[programCounter+2+i]>=0 && memory[programCounter+2+i]<=9){
+								fromRevSize++;
+								toRevIndex++;
+								i++;
+							}
+							toRevIndex += 1;
 
 
-						fromSize=0;
-						for(int k=0;k<fromRevSize;k++){
-							fromSize += (int)pow(10,fromRevSize-1-k)*memory[programCounter+1+fromRevIndex+k];
-						}
-			
-						toIndex = i;
-						while(memory[programCounter+3+i]>=0 && memory[programCounter+3+i]<=9){
-							toMemLength++;
-							i++;
-						}
-			
-						for(int k=0;k<toMemLength;k++){
-							toMem+= (int)pow(10,toMemLength-1-k)*memory[programCounter+3+toIndex+k];
-						}						
+							fromSize=0;
+							for(int k=0;k<fromRevSize;k++){
+								fromSize += (int)pow(10,fromRevSize-1-k)*memory[programCounter+1+fromRevIndex+k];
+							}
+				
+							toIndex = i;
+							while(memory[programCounter+3+i]>=0 && memory[programCounter+3+i]<=9){
+								toMemLength++;
+								i++;
+							}
+				
+							for(int k=0;k<toMemLength;k++){
+								toMem+= (int)pow(10,toMemLength-1-k)*memory[programCounter+3+toIndex+k];
+							}
+						}							
 					} break;
 					
 					case 14:
@@ -690,6 +693,8 @@ int main(void){
 					program[i][j]=0;
 				}
 			}
+			gameCursorPosX=0;
+			gameCursorPosY=0;
 		}
 	}
 
@@ -1080,6 +1085,8 @@ int main(void){
 							program[i][j]=0;
 						}
 					}
+					gameCursorPosX=0;
+					gameCursorPosY=0;
 				}
 
 			}
