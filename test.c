@@ -3,7 +3,6 @@
 // todo: add all the menus and the transition between them, add instructions, whitespace handling in code
 // todo: complete refactoring and cleaning of code
 // todo: implement an upper limit to register values
-// todo: fix bugged stepping function
 // todo: fix ; - not to be almost useless
 // todo: add level progression, save it into a file
 // todo: add level descriptions
@@ -11,7 +10,8 @@
 // todo: make it portable (using only raylib)
 // todo: add error handling
 // todo: more sophisticated level solution testing
-// todo: fix level file creation bug (new level shows the program of the previous level)
+// todo: add cursor at the program counter
+
 
 #include "raylib.h"
 #include <stdio.h>
@@ -409,7 +409,6 @@ int main(void){
 		int toMemLength = 0;
 		int r=0;
 
-
 		switch(memory[programCounter]){
 			case 10:
 			{	
@@ -450,41 +449,38 @@ int main(void){
 							toRevIndex++;
 						} while(memory[programCounter+1+i]>=0 && memory[programCounter+1+i]<=9);
 
-						if(memory[programCounter+1+i]==11){
-							memLength--;
+						memLength--;
 
-							fromIndex = 0;
-							for(int k=0;k<memLength;k++){
-								fromIndex += (int)pow(10,memLength-1-k)*memory[programCounter+2+k];
-							}
-							
-							fromRevIndex++;
+						fromIndex = 0;
+						for(int k=0;k<memLength;k++){
+							fromIndex += (int)pow(10,memLength-1-k)*memory[programCounter+2+k];
+						}
+						
+						fromRevIndex++;
+						toRevIndex++;
+						int fromRevSize = 0;
+
+						while(memory[programCounter+2+i]>=0 && memory[programCounter+2+i]<=9){
+							fromRevSize++;
 							toRevIndex++;
-							int fromRevSize = 0;
+							i++;
+						}
+						toRevIndex += 1;
 
-							while(memory[programCounter+2+i]>=0 && memory[programCounter+2+i]<=9){
-								fromRevSize++;
-								toRevIndex++;
-								i++;
-							}
-							toRevIndex += 1;
-
-
-							fromSize=0;
-							for(int k=0;k<fromRevSize;k++){
-								fromSize += (int)pow(10,fromRevSize-1-k)*memory[programCounter+1+fromRevIndex+k];
-							}
-				
-							toIndex = i;
-							while(memory[programCounter+3+i]>=0 && memory[programCounter+3+i]<=9){
-								toMemLength++;
-								i++;
-							}
-				
-							for(int k=0;k<toMemLength;k++){
-								toMem+= (int)pow(10,toMemLength-1-k)*memory[programCounter+3+toIndex+k];
-							}
-						}							
+						fromSize=0;
+						for(int k=0;k<fromRevSize;k++){
+							fromSize += (int)pow(10,fromRevSize-1-k)*memory[programCounter+1+fromRevIndex+k];
+						}
+			
+						toIndex = i;
+						while(memory[programCounter+3+i]>=0 && memory[programCounter+3+i]<=9){
+							toMemLength++;
+							i++;
+						}
+			
+						for(int k=0;k<toMemLength;k++){
+							toMem+= (int)pow(10,toMemLength-1-k)*memory[programCounter+3+toIndex+k];
+						}
 					} break;
 					
 					case 14:
@@ -563,6 +559,7 @@ int main(void){
 							memory[toMem+fromSize]=19;
 						} break;
 						case 14:
+						{	
 							if(memory[programCounter+4]==1){
 								r1=r;
 							}
@@ -572,6 +569,7 @@ int main(void){
 							else if(memory[programCounter+4]==3){
 								r3=r;
 							}
+						} break;	
 					}
 				}
 			} break;
@@ -634,7 +632,7 @@ int main(void){
 						else if(memory[r]==0){
 							memory[r]=9;
 						}
-					}
+					} break;
 				}
 			} break;
 			case 16:
