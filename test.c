@@ -672,8 +672,8 @@ int main(void){
 	void levelPassed(){
 		if(currentLevel+1==unlockedLevel){
 			unlockedLevel++;
-			currentLevel++;
 			currentScreen = LEVEL_SELECT;
+			if(levelSelect<12){levelSelect++;}
 			char tempLevel[2];
 			if(unlockedLevel<10){
 				tempLevel[0]='0';
@@ -684,7 +684,7 @@ int main(void){
 			tempLevel[2]=0;
 			FILE *fptr = fopen("progress", "w");
 			fprintf(fptr,"%s",tempLevel);
-			fclose(fptr);	
+			fclose(fptr);
 		}
 	}
 
