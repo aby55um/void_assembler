@@ -685,6 +685,11 @@ int main(void){
 			FILE *fptr = fopen("progress", "w");
 			fprintf(fptr,"%s",tempLevel);
 			fclose(fptr);
+			for(int i=0;i<12;i++){
+				for(int j=0;j<24;j++){
+					program[i][j]=0;
+				}
+			}
 		}
 	}
 
@@ -1070,6 +1075,11 @@ int main(void){
 				}
 				if(IsKeyPressed(KEY_ESCAPE)){
 					currentScreen=LEVEL_SELECT;
+					for(int i=0;i<12;i++){
+						for(int j=0;j<12;j++){
+							program[i][j]=0;
+						}
+					}
 				}
 
 			}
