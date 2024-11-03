@@ -11,7 +11,8 @@
 // todo: add error handling
 // todo: more sophisticated level solution testing
 // todo: add cursor at the program counter
-
+// todo? maybe add an instruction that adds the registers
+// todo: write a better instruction set
 
 #include "raylib.h"
 #include <stdio.h>
@@ -111,6 +112,9 @@ int main(void){
 
 	levelLayout[0].r1=20;
 	levelLayout[0].r2=20;
+
+	levelLayout[1].r1=15;
+	levelLayout[1].r2=13;
 
 	char *memoryPlaceHolder[21] = {"0:","8:","10:","18:","20:","28:","30:","38:","40:","48:","50:","58:","60:","68:","70:","78:","80:","88:","90:","98:","A0:"};
 
@@ -704,6 +708,12 @@ int main(void){
 					levelPassed();
 				}
 			} 
+			case 1:
+			{
+				if(memory[128]==1 && memory[129]==9 && memory[130]==5){
+					levelPassed();
+				}
+			}
 		}
 	}
 
