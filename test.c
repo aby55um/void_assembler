@@ -20,26 +20,12 @@
 #include <math.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include "ScreenManager.h"
 
 
 typedef enum GameScreen {LOGO = 0, TITLE, MENU, LEVEL_SELECT, GAMEPLAY, ENDING} GameScreen;
 
 int main(void){
-	
-	int screenWidth = 1100; //800
-	int screenHeight = 650; //450
-
-	int fps = 60;
-	int frame = 0;
-
-	char* title = "VOID ASSEMBLER";
-
-	GameScreen currentScreen = TITLE;
-
-	double title_shadow = 0;
-	Color MyColor;
-
-	int RayWhiteComponent = 245;
 
 	int fd;
 	//FILE *fdFile;
