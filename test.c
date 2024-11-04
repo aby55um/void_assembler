@@ -13,6 +13,8 @@
 // todo: add cursor at the program counter
 // todo? maybe add an instruction that adds the registers
 // todo: write a better instruction set
+// todo: when starting a new game, ask if you are sure
+// todo: the # character is redundant(?), it is not necessary to indicate a constant
 
 #include "raylib.h"
 #include <stdio.h>
@@ -876,6 +878,7 @@ int main(void){
 			case TITLE:
 			{
 				DrawText(title, titleWidth, titleHeight, titleSize, MyColor);
+				DrawText("Demo",titleWidth+screenWidth*0.4,titleHeight+screenWidth*0.06,titleSize/3,MyColor);
 			} break;
 
 			case MENU:
@@ -934,6 +937,7 @@ int main(void){
 
 				ClearBackground(BLACK);
 				DrawText(title, titleWidth, titleHeight, titleSize, MyColor);
+				DrawText("Demo",titleWidth+screenWidth*0.4,titleHeight+screenWidth*0.06,titleSize/3,MyColor);
 
 				for(int i=0; i<5; i++){
 					DrawText(menu[i],menuWidth, upperMenuHeight + i * menuLineSpacing, menuSize, MyColor);
