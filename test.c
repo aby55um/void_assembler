@@ -25,7 +25,7 @@
 #include "ScreenManager.h"
 
 
-typedef enum GameScreen {LOGO = 0, TITLE, MENU, LEVEL_SELECT, GAMEPLAY, CREDITS, ENDING} GameScreen;
+typedef enum GameScreen {LOGO = 0, TITLE, MENU, LEVEL_SELECT, GAMEPLAY, CREDITS, SETTINGS, ENDING} GameScreen;
 
 int main(void){
 
@@ -932,10 +932,14 @@ int main(void){
 							}
 							currentScreen = LEVEL_SELECT;
 						} break;
+						case -2:
+							{
+								currentScreen = SETTINGS;
+							} break;
 						case -3:
 						{
 							currentScreen = CREDITS;
-						}
+						} break;
 					}
 				}
 
@@ -1108,10 +1112,19 @@ int main(void){
 			case CREDITS:
 			{
 				DrawText("Developer: Potato Joe",menuWidth - 0.06*screenWidth, upperMenuHeight, menuSize, MyColor);
-				if(IsKeyPressed(KEY_ESCAPE)){
+				if(IsKeyPressed(KEY_ESCAPE) || IsKeyPressed(KEY_ENTER)){
 					currentScreen=TITLE;
 				}
-			}
+			} break;
+
+			case SETTINGS:
+			{
+				DrawText("No settings in debug test version 0.1\n\nControls",menuWidth - 0.15*screenWidth, upperMenuHeight - 0.2*screenHeight, menuSize, MyColor);
+				DrawText("\nLeft ctrl: assemble\nRight ctrl: run\nm#123@80: Move constant 123 to memory 0x80\nir1: Increment r1\ndr2: decrement r2\nt: if r1>=r2, set the flag register to 0, else to 1\nj: if the flag register is 0, jump to the value of r3\nmov@80#3r3: mov 3 digits starting from memory 0x80 to r3",menuWidth-0.15*screenWidth,upperMenuHeight-0.05*screenHeight, menuSize*0.8,MyColor);
+				if(IsKeyPressed(KEY_ESCAPE) || IsKeyPressed(KEY_ENTER)){
+					currentScreen=TITLE;
+				}
+			} break;
 		}
 		EndDrawing();
 	}
