@@ -25,7 +25,7 @@
 #include "ScreenManager.h"
 
 
-typedef enum GameScreen {LOGO = 0, TITLE, MENU, LEVEL_SELECT, GAMEPLAY, ENDING} GameScreen;
+typedef enum GameScreen {LOGO = 0, TITLE, MENU, LEVEL_SELECT, GAMEPLAY, CREDITS, ENDING} GameScreen;
 
 int main(void){
 
@@ -851,7 +851,7 @@ int main(void){
 			PlaySound(menuSound);
 		}
 
-		if(!IsSoundPlaying(menuSound) && (currentScreen == TITLE || currentScreen == MENU || currentScreen == LEVEL_SELECT || currentScreen == GAMEPLAY)){
+		if(!IsSoundPlaying(menuSound) /*&& (currentScreen == TITLE || currentScreen == MENU || currentScreen == LEVEL_SELECT || currentScreen == GAMEPLAY)*/){
 			PlaySound(menuSound);
 		}
 
@@ -932,6 +932,10 @@ int main(void){
 							}
 							currentScreen = LEVEL_SELECT;
 						} break;
+						case -3:
+						{
+							currentScreen = CREDITS;
+						}
 					}
 				}
 
@@ -1099,6 +1103,14 @@ int main(void){
 					gameCursorPosY=0;
 				}
 
+			} break;
+
+			case CREDITS:
+			{
+				DrawText("Developer: Potato Joe",menuWidth - 0.06*screenWidth, upperMenuHeight, menuSize, MyColor);
+				if(IsKeyPressed(KEY_ESCAPE)){
+					currentScreen=TITLE;
+				}
 			}
 		}
 		EndDrawing();

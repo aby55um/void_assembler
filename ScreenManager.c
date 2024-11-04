@@ -9,7 +9,7 @@ int frame = 0;
 
 char* title = "VOID ASSEMBLER";
 
-typedef enum GameScreen {LOGO = 0, TITLE, MENU, LEVEL_SELECT, GAMEPLAY, ENDING} GameScreen;
+typedef enum GameScreen {LOGO = 0, TITLE, MENU, LEVEL_SELECT, GAMEPLAY, CREDITS, ENDING} GameScreen;
 
 GameScreen currentScreen = TITLE;
 
