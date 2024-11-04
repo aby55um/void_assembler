@@ -28,7 +28,6 @@ typedef enum GameScreen {LOGO = 0, TITLE, MENU, LEVEL_SELECT, GAMEPLAY, ENDING} 
 int main(void){
 
 	int fd;
-	//FILE *fdFile;
 
 	int titleHeight = (int)((double)screenHeight * 0.25);
 	int titleWidth = (int)((double)screenWidth * 0.3);
@@ -916,6 +915,19 @@ int main(void){
 						{
 							currentScreen	 = LEVEL_SELECT;
 							activeMenu = 0;
+						} break;
+						case -1:
+						{	
+							char levelName[7]="level";
+							levelName[7]=0;
+							remove("progress");
+							for(int i=1;i<=12;i++){
+								levelName[5]=i/10+'0';
+								levelName[6]=i%10+'0';
+								printf("%s",levelName);
+								remove(levelName);
+							}
+							currentScreen = LEVEL_SELECT;
 						} break;
 					}
 				}
