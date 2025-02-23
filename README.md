@@ -7,10 +7,10 @@ tested on a Remnux distribution
 This only works on Linux
 
 Download and play:
-Download the latest release: void_assembler.zip
-unzip void_assembler.zip
-cd void_assembler
-./test
+1. Download the latest release: void_assembler.zip
+2. unzip void_assembler.zip
+3. cd void_assembler
+4. ./test
 
 how to compile:
 1. install raylib ( https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux )
