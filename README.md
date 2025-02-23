@@ -6,6 +6,12 @@ license: CC BY-NC-ND 4.0
 tested on a Remnux distribution
 This only works on Linux
 
+Download and play:
+Download the latest release: void_assembler.zip
+unzip void_assembler.zip
+cd void_assembler
+./test
+
 how to compile:
 1. install raylib ( https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux )
 2. enter the directory of test.c and the two sound files
